@@ -18,6 +18,21 @@ And extra functions to study properties of the network based on a distance vecto
 - Diameter (*Diameter_real_network(doc.csv, nrep, sample_size, thres_vector)*)
 - Degree Connection (*EdgeD_real_network(doc.csv, nrep, sample_size, thres_vector)*)
 
-The resulting data can be saved as a .csv document and plotted with [ggplot2](https://ggplot2.tidyverse.org/) using **Resultados_redes_reales.rmd** programme. Results will be saved in PDF format. There are two types of graphs:
+The resulting data can be saved as a separate .csv document and plotted with [ggplot2](https://ggplot2.tidyverse.org/) using **Resultados_redes_reales.rmd** programme. Results will be saved in PDF format. There are two types of graphs:
 - Property v Sample Size (with Size Vector in Legend)
 - Property v Size Vector (with Sample Size in Legend)
+
+## Synthetic Networks.
+In this project, two types of model networks were studied to compare its behaviour with our plant complex networks.
+### Erdos-Renyi Network
+Based on the theory developed by [Erdos-Renyi](https://snap.stanford.edu/class/cs224w-readings/erdos59random.pdf) we created a 5000 node network with a given probability of connection (*prob*). Afterwards, we extracted (*prom*) number of random samples of given size (*size*) and obtained the mean value of previously mentioned structural properties. The pertinent functions created to do so can be found in **Funciones_redes_aleatorias.R**. 
+- Giant component (*LCC_erdos_renyi(size, prob, prom)*)
+- Modularity value (*Mod_erdos_renyi(size, prob, prom)*)
+- Clustering Coefficient (*Ccoef_erdos_renyi(size, prob, prom)*)
+- Diameter (*Diameter_erdos_renyi(size, prob, prom*)
+- Degree Connection (*EdgeD_erdos_renyi(size, prob, prom*)
+
+The resulting data can be saved as a separate .csv document and plotted with [ggplot2](https://ggplot2.tidyverse.org/) using **Resultados_redes_aleatorias.rmd** programme. Results will be saved in PDF format. There are two types of graphs: 
+- Property v Sample Size (with Size Vector in Legend)
+- Property v Size Vector (with Sample Size in Legend)
+
