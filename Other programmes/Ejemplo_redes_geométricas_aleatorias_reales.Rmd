@@ -1,0 +1,70 @@
+---
+title: "Ejemplo_redes_materiales_métodos"
+author: "LeonardoClaudin"
+date: "15/6/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+rm(list = ls())
+library(igraph)
+library(sf)
+library(rnaturalearth)
+library(rnaturalearthdata)
+library(ggplot2)
+source("Funciones/Funciones_redes_reales.R")
+```
+
+```{r}
+grafica_aleatoria <- erdos.renyi.game(500, 0.008, type = "gnp")
+V(grafica_aleatoria)$color <- "navy"
+E(grafica_aleatoria)$color <- "gray45"
+Isol <- which(degree(grafica_aleatoria)==0)
+layout.connected <- layout_nicely(grafica_aleatoria)
+nROW <- nrow(layout.connected[Isol,])
+nCOL <- ncol(layout.connected[Isol,])
+layout.connected[Isol,] <- matrix(data = runif(nROW*nCOL, min = -5, max = 25), 
+                                  nrow = nROW, 
+                                  ncol = nCOL)
+pdf("gráfica_aleatoria.pdf", 10, 10)
+plot(grafica_aleatoria, layout=layout.connected, vertex.size=3, vertex.label=NA, edge.arrow.size=0,
+     vertex.shape = "circle")
+dev.off()
+```
+```{r}
+grafica_geometrica <- grg.game(500, radius = 0.05)
+V(grafica_geometrica)$color <- "navy"
+E(grafica_geometrica)$color <- "gray45"
+Isol <- which(degree(grafica_geometrica)==0)
+layout.connected.g <- layout_nicely(grafica_geometrica)
+nROW <- nrow(layout.connected.g[Isol,])
+nCOL <- ncol(layout.connected.g[Isol,])
+layout.connected.g[Isol,] <- matrix(data = runif(nROW*nCOL, min = -5, max = 25), 
+                                  nrow = nROW, 
+                                  ncol = nCOL)
+
+pdf("gráfica_geométrica.pdf", 10, 10)
+plot(grafica_geometrica, layout = layout.connected.g, vertex.size=3, vertex.label=NA, edge.arrow.size=0,
+     vertex.shape = "circle")
+dev.off()
+```
+
+```{r}
+muestra <- distance_matrix("Sustratos/Chumberas/Chumberas_Coords2.csv", 500)
+dist.matrix.muestra <- muestra[[1]]
+coord.muestra <- as.matrix(muestra[[2]])
+
+adj.matrix.muestra <- adjacent_matrix(dist.matrix.muestra, 100)
+grafica_real <- graph_from_adjacency_matrix(adj.matrix.muestra, mode = c("undirected"))
+
+V(grafica_real)$color <- "navy"
+E(grafica_real)$color <- "gray45"
+
+pdf("gráfica_real.pdf", 10, 10)
+plot(grafica_real, layout = coord.muestra, vertex.size=3, vertex.label=NA, edge.arrow.size=0,
+     vertex.shape = "circle")
+dev.off()
+```
+
+
