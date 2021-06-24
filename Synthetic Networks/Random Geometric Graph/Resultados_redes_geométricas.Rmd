@@ -1,0 +1,140 @@
+---
+title: "Redes Geométricas"
+author: "LeonardoClaudin"
+date: "11/6/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+rm(list = ls())
+library(ggplot2)
+source("Funciones_redes_geométricas.R")
+```
+
+### Giant Component
+
+```{r}
+LCC_redes_geometricas <- read.csv(file = "LCC_geometric.csv", sep = ";")
+pdf("LCC_redes_geométricas.pdf", 10, 10)
+ggplot() +
+  geom_point(data = LCC_redes_geometricas, aes(x = Size, y = LCC, color = as.factor(round(Rad, 4))), position = "jitter") +
+  labs(color = "Radio (R)") + xlab("Tamaño muestral (M)") + ylab("Componente Conexa Mayor (LCC)") +
+  theme(axis.text=element_text(size=12), 
+        axis.title=element_text(size=14), 
+        legend.text = element_text(size = 14),
+        legend.title = element_text(size = 14),
+          panel.background = element_rect(fill = "white", colour = "slategray2", size = 2, linetype = "solid"),
+        panel.grid.major = element_line(size = 0.5, linetype = 'solid', colour = "slategray1"), 
+        panel.grid.minor = element_line(size = 0.25, linetype = 'solid', colour = "slategray1"))
+dev.off()
+```
+
+### Modularity
+
+```{r}
+Mod_redes_geometricas <- read.csv(file = "Mod_geometric.csv", sep = ";")
+pdf("Mod_redes_geometricas.pdf", 10, 10)
+ggplot() +
+  geom_point(data = Mod_redes_geometricas, aes(x = Size, y = Mod, color = as.factor(round(Rad, 4))), position = "jitter") +
+  labs(color = "Radio (R)") + xlab("Tamaño muestral (M)") + ylab("Modularidad (Q)") +
+  theme(axis.text=element_text(size=12), 
+        axis.title=element_text(size=14), 
+        legend.text = element_text(size = 14),
+        legend.title = element_text(size = 14),
+          panel.background = element_rect(fill = "white", colour = "slategray2", size = 2, linetype = "solid"),
+        panel.grid.major = element_line(size = 0.5, linetype = 'solid', colour = "slategray1"), 
+        panel.grid.minor = element_line(size = 0.25, linetype = 'solid', colour = "slategray1"))
+dev.off()
+```
+
+```{r}
+Escalado <- Mod_redes_geometricas
+pdf("Modularity_escalado_geometrica.csv", 10, 10)
+ggplot() +
+  geom_point(data = Escalado, aes(x = Size*Rad^2, y = Mod, color = as.factor(round(Rad, 4))), position = "jitter") +
+  labs(color = "Radio (R)") + xlab("MR") + ylab("Modularidad (Q)") +
+  theme(axis.text=element_text(size=12), 
+        axis.title=element_text(size=14), 
+        legend.text = element_text(size = 14),
+        legend.title = element_text(size = 14),
+          panel.background = element_rect(fill = "white", colour = "slategray2", size = 2, linetype = "solid"),
+        panel.grid.major = element_line(size = 0.5, linetype = 'solid', colour = "slategray1"), 
+        panel.grid.minor = element_line(size = 0.25, linetype = 'solid', colour = "slategray1")) +
+  xlim(1, 5)
+```
+
+### Clustering Coefficient
+
+```{r}
+CCoef_redes_geometricas <- read.csv(file = "CCoef_data_geometric.csv", sep = ";")
+pdf("CCoef_redes_geometricas.pdf", 10, 10)
+ggplot() +
+  geom_point(data = CCoef_redes_geometricas, aes(x = Size, y = CCoef, color = as.factor(round(Rad, 4))), position = "jitter") +
+  labs(color = "Radio (R)") + xlab("Tamaño muestral (M)") + ylab("Coeficiente de Clustering (C)") +
+  theme(axis.text=element_text(size=12), 
+        axis.title=element_text(size=14), 
+        legend.text = element_text(size = 14),
+        legend.title = element_text(size = 14),
+          panel.background = element_rect(fill = "white", colour = "slategray2", size = 2, linetype = "solid"),
+        panel.grid.major = element_line(size = 0.5, linetype = 'solid', colour = "slategray1"), 
+        panel.grid.minor = element_line(size = 0.25, linetype = 'solid', colour = "slategray1")) +
+  coord_fixed(ratio = 3000) + 
+  geom_hline(yintercept = 0.5865, color = "black")
+dev.off()
+```
+
+### Diameter
+
+```{r}
+Diam_redes_geometricas <- read.csv(file = "Dist_data_geometric.csv", sep = ";")
+pdf("Diam_redes_geometricas.pdf", 10, 10)
+ggplot() +
+  geom_point(data = Diam_redes_geometricas[-np,], 
+             aes(x = Size, y = Dist, color = as.factor(round(Rad, 4))), 
+             position = "jitter") +
+  labs(color = "Radio (R)") + xlab("Tamaño muestral (M)") + ylab("Diámetro (D)") +
+  theme(axis.text=element_text(size=12), 
+        axis.title=element_text(size=14), 
+        legend.text = element_text(size = 14),
+        legend.title = element_text(size = 14),
+          panel.background = element_rect(fill = "white", colour = "slategray2", size = 2, linetype = "solid"),
+        panel.grid.major = element_line(size = 0.5, linetype = 'solid', colour = "slategray1"), 
+        panel.grid.minor = element_line(size = 0.25, linetype = 'solid', colour = "slategray1"))
+dev.off()
+```
+
+```{r}
+Escalado <- Diam_redes_geometricas
+Escalado <- Escalado[which(Escalado$Rad>((20/46)*sqrt(log(Escalado$Size)/Escalado$Size))),]
+pdf("Diameter_escalado_geometrica.csv", 10, 10)
+ggplot() +
+  geom_point(data = Escalado, aes(x = log(Size*Rad^2), y = Dist/log(Rad), color = as.factor(round(Rad, 4))), position = "jitter") +
+  labs(color = "Radio (R)") + xlab("Tamaño muestral (M)") + ylab("Modularidad (Q)") +
+  theme(axis.text=element_text(size=12), 
+        axis.title=element_text(size=14), 
+        legend.text = element_text(size = 14),
+        legend.title = element_text(size = 14),
+          panel.background = element_rect(fill = "white", colour = "slategray2", size = 2, linetype = "solid"),
+        panel.grid.major = element_line(size = 0.5, linetype = 'solid', colour = "slategray1"), 
+        panel.grid.minor = element_line(size = 0.25, linetype = 'solid', colour = "slategray1"))
+```
+
+### Degree Connection
+
+```{r}
+EdgeD_redes_geometricas <- read.csv(file = "EdgeDensity_geometric.csv", sep = ";")
+pdf("EdgeD_redes_geometricas.pdf", 10, 10)
+ggplot() +
+  geom_point(data = EdgeD_redes_geometricas, aes(x = Size, y = EdgeD, color = as.factor(round(Rad, 4))), position = "jitter") +
+  labs(color = "Radio (R)") + xlab("Tamaño muestral (M)") + ylab("Densidad de Conexiones") +
+  theme(axis.text=element_text(size=12), 
+        axis.title=element_text(size=14), 
+        legend.text = element_text(size = 14),
+        legend.title = element_text(size = 14),
+          panel.background = element_rect(fill = "white", colour = "slategray2", size = 2, linetype = "solid"),
+        panel.grid.major = element_line(size = 0.5, linetype = 'solid', colour = "slategray1"), 
+        panel.grid.minor = element_line(size = 0.25, linetype = 'solid', colour = "slategray1")) +
+  coord_fixed(ratio = 4000)
+dev.off()
+```
