@@ -51,7 +51,7 @@ dev.off()
 ```
 
 ```{r}
-muestra <- distance_matrix("Sustratos/Chumberas/Chumberas_Coords2.csv", 500)
+muestra <- distance_matrix("Your plant network data", 500)
 dist.matrix.muestra <- muestra[[1]]
 coord.muestra <- as.matrix(muestra[[2]])
 
