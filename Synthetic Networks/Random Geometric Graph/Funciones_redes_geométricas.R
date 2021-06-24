@@ -1,10 +1,10 @@
 ##------------------------------------------------------------------------------
-##                        FUNCIONES DE LA MODELIZACI”N
+##                        FUNCIONES DE LA MODELIZACI√ìN
 ##------------------------------------------------------------------------------
 
 
 ##------------------------------------------------------------------------------
-##                          LIBRERÕAS NECESARIAS
+##                          LIBRER√çAS NECESARIAS
 list.of.packages <- c("ggplot2", "igraph", "ggraph", "shinyBS", "shinydashboard",
                       "sf", "rnaturalearth", "rnaturalearthdata", "tidygraph",
                       "ggpubr")
@@ -14,9 +14,9 @@ if(length(new.packages)) install.packages(new.packages)
 lapply(list.of.packages, library, character.only = TRUE)
 
 ##------------------------------------------------------------------------------
-##                        REDES GEOM…TRICAS ALEATORIAS
+##                        REDES GEOM√âTRICAS ALEATORIAS
 ##------------------------------------------------------------------------------
-##                     FUNCI”N LCC GEOMETRIC RANDOM GRAPH
+##                     FUNCI√ìN LCC GEOMETRIC RANDOM GRAPH
 
 LCC_grg <- function(size, rad, prom){
   lsize <- length(size)
@@ -25,7 +25,7 @@ LCC_grg <- function(size, rad, prom){
                        "LCC" = c(),
                        "Rad" = c())
   for (k in 1:lprob){
-    # EL tamaÒo de la red es de 10.000 nodos.
+    # EL tama√±o de la red es de 10.000 nodos.
     net <- sample_grg(5000, rad[k], coords = TRUE)
     Resultados <- data.frame("Size" = size,
                              "LCC" = vector(length = lsize),
@@ -33,7 +33,7 @@ LCC_grg <- function(size, rad, prom){
     res <- matrix(0, nrow = lsize, ncol = prom)
     for (i in 1:lsize){
       for (j in 1:prom){
-        #Tomamos muestras de tamaÒo definido por un vector.
+        #Tomamos muestras de tama√±o definido por un vector.
         vertex_sel <- sample(5000, size[i])
         net_subgraph <- induced_subgraph(net, vertex_sel)
         res[i,j] <- max(clusters(net_subgraph)$csize)
@@ -46,7 +46,7 @@ LCC_grg <- function(size, rad, prom){
 }
 
 ##------------------------------------------------------------------------------
-##                FUNCI”N MODULARIDAD GEOMETRIC RANDOM GRAPH
+##                FUNCI√ìN MODULARIDAD GEOMETRIC RANDOM GRAPH
 
 Mod_grg <- function(size, rad, prom){
   lsize <- length(size)
@@ -75,7 +75,7 @@ Mod_grg <- function(size, rad, prom){
 }
 
 ##------------------------------------------------------------------------------
-##           FUNCI”N COEFICIENTE CLUSTERING GEOMETRIC RANDOM GRAPH
+##           FUNCI√ìN COEFICIENTE CLUSTERING GEOMETRIC RANDOM GRAPH
 
 CCoef_grg <- function(size, rad, prom){
   lsize <- length(size)
@@ -103,9 +103,9 @@ CCoef_grg <- function(size, rad, prom){
 }
 
 ##------------------------------------------------------------------------------
-##               FUNCI”N CAMINO MEDIO GEOMETRIC RANDOM GRAPH
+##               FUNCI√ìN CAMINO MEDIO GEOMETRIC RANDOM GRAPH
 
-Dist_grg <- function(size, rad, prom){
+Diameter_grg <- function(size, rad, prom){
   lsize <- length(size)
   lprob <- length(rad)
   Result <- data.frame("Size" = c(),
@@ -131,7 +131,7 @@ Dist_grg <- function(size, rad, prom){
 }
 
 ##------------------------------------------------------------------------------
-##             FUNCI”N EDGE CONNECTIVITY GEOMETRIC RANDOM GRAPH
+##             FUNCI√ìN EDGE CONNECTIVITY GEOMETRIC RANDOM GRAPH
 
 EdgeD_grg <- function(size, rad, prom){
   lsize <- length(size)
