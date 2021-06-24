@@ -25,7 +25,7 @@ The resulting data can be saved as a separate .csv document and plotted with [gg
 ## Synthetic Networks.
 In this project, two types of model networks were studied to compare its behaviour with our plant complex networks.
 ### Erdos-Renyi Network
-Based on the theory developed by [Erdos-Renyi](https://snap.stanford.edu/class/cs224w-readings/erdos59random.pdf) we created a 5000 node network with a given probability of connection (*prob*). Afterwards, we extracted (*prom*) number of random samples of given size (*size*) and obtained the mean value of previously mentioned structural properties. The pertinent functions created to do so can be found in **Funciones_redes_aleatorias.R**. 
+Based on the theory developed by [Erdos-Renyi](https://snap.stanford.edu/class/cs224w-readings/erdos59random.pdf) and working with [igraph](https://igraph.org/r/doc/erdos.renyi.game.html) package, we created a 5000 node network with a given probability of connection (*prob*). Afterwards, we extracted (*prom*) number of random samples of given size (*size*) and obtained the mean value of previously mentioned structural properties. The pertinent functions created to do so can be found in **Funciones_redes_aleatorias.R**. 
 - Giant component (*LCC_erdos_renyi(size, prob, prom)*)
 - Modularity value (*Mod_erdos_renyi(size, prob, prom)*)
 - Clustering Coefficient (*Ccoef_erdos_renyi(size, prob, prom)*)
@@ -35,3 +35,13 @@ Based on the theory developed by [Erdos-Renyi](https://snap.stanford.edu/class/c
 The resulting data can be saved as a separate .csv document and plotted with [ggplot2](https://ggplot2.tidyverse.org/) using **Resultados_redes_aleatorias.rmd** programme. Results will be saved in PDF format. There is only one type of graph: 
 - Property v Sample Size (with probability values in Legend)
 
+### Random Geometric Graph.
+We developed a random distance graph that adds edges between nodes if distance between nodes is sorter that given radius (*rad*). This implemented thanks to [igraph](https://igraph.org/r/doc/sample_grg.html) package. Similarly as with Erdos-Renyi, a 5000 node network was built and subnets of sizes (*size*) were elaborated from random sampling from original network. To evaluate the value of the properties, mean values of (*prom*) samples were calculated. The function with estimate these values can be found in **Funciones_redes_geometricas.R**, which can be summed up into:
+- Giant component (*LCC_grg(size, rad, prom)*)
+- Modularity value (*Mod_grg(size, rad, prom)*)
+- Clustering Coefficient (*CCoef_grg(size, rad, prom)*)
+- Diameter (*Diameter_grg(size, rad, prom)*)
+- Degree Connection (*EdgeD_grg(size, rad, prom)*)
+
+The resulting data can be saved as a separate .csv document and plotted with [ggplot2](https://ggplot2.tidyverse.org/) using **Resultados_redes_geometricas.rmd** programme. Results will be saved in PDF format. There is only one type of graph: 
+- Property v Sample Size (with probability values in Legend)
