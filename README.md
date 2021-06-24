@@ -19,8 +19,8 @@ And extra functions to study properties of the network based on a distance vecto
 - Degree Connection (*EdgeD_real_network(doc.csv, nrep, sample_size, thres_vector)*)
 
 The resulting data can be saved as a separate .csv document and plotted with [ggplot2](https://ggplot2.tidyverse.org/) using **Resultados_redes_reales.rmd** programme. Results will be saved in PDF format. There are two types of graphs:
-- Property v Sample Size (with Size Vector in Legend)
-- Property v Size Vector (with Sample Size in Legend)
+- Property v Sample Size (with threshold values in Legend)
+- Property v Threshold Values (with sample size in Legend)
 
 ## Synthetic Networks.
 In this project, two types of model networks were studied to compare its behaviour with our plant complex networks.
@@ -32,7 +32,6 @@ Based on the theory developed by [Erdos-Renyi](https://snap.stanford.edu/class/c
 - Diameter (*Diameter_erdos_renyi(size, prob, prom*)
 - Degree Connection (*EdgeD_erdos_renyi(size, prob, prom*)
 
-The resulting data can be saved as a separate .csv document and plotted with [ggplot2](https://ggplot2.tidyverse.org/) using **Resultados_redes_aleatorias.rmd** programme. Results will be saved in PDF format. There are two types of graphs: 
-- Property v Sample Size (with Size Vector in Legend)
-- Property v Size Vector (with Sample Size in Legend)
+The resulting data can be saved as a separate .csv document and plotted with [ggplot2](https://ggplot2.tidyverse.org/) using **Resultados_redes_aleatorias.rmd** programme. Results will be saved in PDF format. There is only one type of graph: 
+- Property v Sample Size (with probability values in Legend)
 
