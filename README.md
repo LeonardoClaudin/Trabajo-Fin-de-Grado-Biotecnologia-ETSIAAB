@@ -32,10 +32,11 @@ Based on the theory developed by [Erdos-Renyi](https://snap.stanford.edu/class/c
 - Diameter (*Diameter_erdos_renyi(size, prob, prom*)
 - Degree Connection (*EdgeD_erdos_renyi(size, prob, prom*)
 
-The resulting data can be saved as a separate .csv document and plotted with [ggplot2](https://ggplot2.tidyverse.org/) using **Resultados_redes_aleatorias.rmd** programme. Results will be saved in PDF format. There is only one type of graph: 
+The resulting data can be saved as a separate .csv document and plotted with [ggplot2](https://ggplot2.tidyverse.org/) using **Resultados_redes_aleatorias.rmd** programme. Results will be saved in PDF format. There are two types of graph: 
 - Property v Sample Size (with probability values in Legend)
+- Scaling (if possible) of these properties to find a common behaviour invariant of sample size
 
-### Random Geometric Graph.
+### Random Geometric Network.
 We developed a random distance graph that adds edges between nodes if distance between nodes is sorter that given radius (*rad*). This implemented thanks to [igraph](https://igraph.org/r/doc/sample_grg.html) package. Similarly as with Erdos-Renyi, a 5000 node network was built and subnets of sizes (*size*) were elaborated from random sampling from original network. To evaluate the value of the properties, mean values of (*prom*) samples were calculated. The function with estimate these values can be found in **Funciones_redes_geometricas.R**, which can be summed up into:
 - Giant component (*LCC_grg(size, rad, prom)*)
 - Modularity value (*Mod_grg(size, rad, prom)*)
@@ -43,5 +44,6 @@ We developed a random distance graph that adds edges between nodes if distance b
 - Diameter (*Diameter_grg(size, rad, prom)*)
 - Degree Connection (*EdgeD_grg(size, rad, prom)*)
 
-The resulting data can be saved as a separate .csv document and plotted with [ggplot2](https://ggplot2.tidyverse.org/) using **Resultados_redes_geometricas.rmd** programme. Results will be saved in PDF format. There is only one type of graph: 
+The resulting data can be saved as a separate .csv document and plotted with [ggplot2](https://ggplot2.tidyverse.org/) using **Resultados_redes_geometricas.rmd** programme. Results will be saved in PDF format. There are two types of graph: 
 - Property v Sample Size (with probability values in Legend)
+- Scaling (if possible) of these properties to find a common behaviour invariant of sample size
