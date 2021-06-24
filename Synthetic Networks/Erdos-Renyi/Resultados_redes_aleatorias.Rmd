@@ -1,0 +1,139 @@
+---
+title: "Resultados"
+author: "LeonardoClaudin"
+date: "16/6/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Giant Component
+
+```{r}
+LCC_redes_aleatorias <- read.csv("Your giant component .csv", sep = ";")
+np <- which(LCC_redes_aleatorias$Size*LCC_redes_aleatorias$Prob==1)
+pdf("LCC_redes_aleatorias.pdf", 10, 10)
+ggplot() +
+  geom_point(data = LCC_redes_aleatorias, aes(x = Size, y = LCC, color = as.factor(round(Prob, 4)))) +
+  labs(color = "Probabilidad (P)") + xlab("Tamaño muestral (M)") + ylab("Componente Conexa Mayor (LCC)") +
+  theme(axis.text=element_text(size=12), 
+        axis.title=element_text(size=14), 
+        legend.text = element_text(size = 14),
+        legend.title = element_text(size = 14),
+          panel.background = element_rect(fill = "white", colour = "slategray2", size = 2, linetype = "solid"),
+        panel.grid.major = element_line(size = 0.5, linetype = 'solid', colour = "slategray1"), 
+        panel.grid.minor = element_line(size = 0.25, linetype = 'solid', colour = "slategray1")) +
+  geom_vline(data = LCC_redes_aleatorias[np,], aes(xintercept = Size, color = as.factor(round(Prob, 4))))
+dev.off()
+``` 
+
+### Modularity
+
+```{r}
+Mod_redes_aleatorias <- read.csv("Your modularity .csv", sep = ";")
+np <- which(Mod_redes_aleatorias$Size*Mod_redes_aleatorias$Prob==1)
+
+pdf("Mod_redes_aleatorias.pdf", 10, 10)
+ggplot() +
+  geom_point(data = Mod_redes_aleatorias, aes(x = Size, y = Mod, color = as.factor(round(Prob, 4)))) +
+  labs(color = "Probabilidad (P)") + xlab("Tamaño muestral (M)") + ylab("Modularidad (Q)") +
+  theme(axis.text=element_text(size=12), 
+        axis.title=element_text(size=14), 
+        legend.text = element_text(size = 14),
+        legend.title = element_text(size = 14),
+          panel.background = element_rect(fill = "white", colour = "slategray2", size = 2, linetype = "solid"),
+        panel.grid.major = element_line(size = 0.5, linetype = 'solid', colour = "slategray1"), 
+        panel.grid.minor = element_line(size = 0.25, linetype = 'solid', colour = "slategray1")) +
+  geom_vline(data = Mod_redes_aleatorias[np,], aes(xintercept = Size, color = as.factor(round(Prob, 4))))
+dev.off()
+```
+
+```{r}
+pdf("Mod_redes_aleatorias_escalado.pdf", 10, 10)
+ggplot() +
+  geom_point(data = Mod_redes_aleatorias, aes(x = Size*Prob, y = Mod, color = as.factor(round(Prob, 4)))) +
+  labs(color = "Probabilidad (P)") + xlab(expression(paste(M*P))) + ylab("Modularidad (Q)") +
+  theme(axis.text=element_text(size=12), 
+        axis.title=element_text(size=14), 
+        legend.text = element_text(size = 14),
+        legend.title = element_text(size = 14),
+          panel.background = element_rect(fill = "white", colour = "slategray2", size = 2, linetype = "solid"),
+        panel.grid.major = element_line(size = 0.5, linetype = 'solid', colour = "slategray1"), 
+        panel.grid.minor = element_line(size = 0.25, linetype = 'solid', colour = "slategray1")) +
+  xlim(0,10) + geom_vline(data = Mod_redes_aleatorias[np,], aes(xintercept = Size*Prob), color = "midnightblue")
+dev.off()
+```
+
+### Clustering Coefficient
+
+```{r}
+CCoef_redes_aleatorias <- read.csv("Your Clustering Coefficient .csv", sep = ";")
+pdf("CCoef_redes_aleatorias.pdf", 10, 10)
+ggplot() +
+  geom_point(data = CCoef_redes_aleatorias, aes(x = Size, y = CCoef, color = as.factor(round(Prob, 4)))) +
+  labs(color = "Probabilidad (P)") + xlab("Tamaño muestral (M)") + ylab("Coeficiente de Clustering (C)") +
+  theme(axis.text=element_text(size=12), 
+        axis.title=element_text(size=14), 
+        legend.text = element_text(size = 14),
+        legend.title = element_text(size = 14),
+          panel.background = element_rect(fill = "white", colour = "slategray2", size = 2, linetype = "solid"),
+        panel.grid.major = element_line(size = 0.5, linetype = 'solid', colour = "slategray1"), 
+        panel.grid.minor = element_line(size = 0.25, linetype = 'solid', colour = "slategray1"))
+dev.off()
+```
+
+### Diameter
+
+```{r}
+Diam_redes_aleatorias <- read.csv("Your diameter .csv", sep = ";")
+pdf("Diam_redes_aleatorias.pdf", 10, 10)
+ggplot() +
+  geom_point(data = Diam_redes_aleatorias, aes(x = Size, y = Dist, color = as.factor(round(Prob, 4)))) +
+  labs(color = "Probabilidad (P)") + xlab("Tamaño muestral (M)") + ylab("Diámetro (D)") +
+  theme(axis.text=element_text(size=12), 
+        axis.title=element_text(size=14), 
+        legend.text = element_text(size = 14),
+        legend.title = element_text(size = 14),
+          panel.background = element_rect(fill = "white", colour = "slategray2", size = 2, linetype = "solid"),
+        panel.grid.major = element_line(size = 0.5, linetype = 'solid', colour = "slategray1"), 
+        panel.grid.minor = element_line(size = 0.25, linetype = 'solid', colour = "slategray1")) +
+  geom_vline(data = Diam_redes_aleatorias[np,], aes(xintercept = Size, color = as.factor(round(Prob, 4))))
+dev.off()
+```
+
+```{r}
+Escalado_diam <- Diam_redes_aleatorias[which(Diam_redes_aleatorias$Size*Diam_redes_aleatorias$Prob>1),]
+pdf("Diam_redes_aleatorias_escalado.pdf", 10, 10)
+ggplot() +
+  geom_point(data = Escalado_diam, aes(x = log(Prob*Size), y = Dist/log(Size), color = as.factor(round(Prob, 4)))) +
+  labs(color = "Probabilidad (P)") + xlab("log(MP)") + ylab("Diámetro/log(M)") +
+  theme(axis.text=element_text(size=12), 
+        axis.title=element_text(size=14), 
+        legend.text = element_text(size = 14),
+        legend.title = element_text(size = 14),
+          panel.background = element_rect(fill = "white", colour = "slategray2", size = 2, linetype = "solid"),
+        panel.grid.major = element_line(size = 0.5, linetype = 'solid', colour = "slategray1"), 
+        panel.grid.minor = element_line(size = 0.25, linetype = 'solid', colour = "slategray1"))
+dev.off()
+```
+
+### Degree Connection
+
+```{r}
+EdgeD_redes_aleatorias <- read.csv("Your Degree Connection .csv", sep = ";")
+pdf("Edge_redes_aleatorias.pdf", 10, 10)
+ggplot() +
+  geom_point(data = EdgeD_redes_aleatorias, aes(x = Size, y = EdgeD, color = as.factor(round(Prob, 4)))) +
+  labs(color = "Probabilidad (P)") + xlab("Tamaño muestral (M)") + ylab("Densidad de Conexiones") +
+  theme(axis.text=element_text(size=12), 
+        axis.title=element_text(size=14), 
+        legend.text = element_text(size = 14),
+        legend.title = element_text(size = 14),
+          panel.background = element_rect(fill = "white", colour = "slategray2", size = 2, linetype = "solid"),
+        panel.grid.major = element_line(size = 0.5, linetype = 'solid', colour = "slategray1"), 
+        panel.grid.minor = element_line(size = 0.25, linetype = 'solid', colour = "slategray1"))
+dev.off()
+```
+
