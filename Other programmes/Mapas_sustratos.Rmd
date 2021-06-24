@@ -27,7 +27,7 @@ mytheme <- theme(panel.grid.major = element_line(color = '#cccccc'
 
 ```{r}
 world <- ne_countries(scale = "medium", returnclass = "sf")
-datos <- data_network("Sustratos/Viñedos/CoordenadasVid.csv", 1000)
+datos <- data_network("Your plant netowrk data .csv", 1000)
 pdf("Mapa_viñedos.pdf", 10, 10)
 ggplot() + 
   geom_sf(data = world) +
