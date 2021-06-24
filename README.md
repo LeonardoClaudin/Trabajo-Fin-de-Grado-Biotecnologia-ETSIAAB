@@ -2,7 +2,7 @@
 MODELIZACION DE DATOS DE GEOLOCALIZACION DE ESPECIES VEGETALES MEDIANTE REDES COMPLEJAS
 
 This github repository contains the programming files in R, corresponding to the Degree Thesis **Modelization of ocurrence data from plant species with complex networks**.
-## Complex Networks.
+## Complex Networks
 The ocurrence data was obtained from [GBIF](https://www.gbif.org/). Once filtered, the data can be found in the folder **Ocurrence Data**. 
 In **Funciones_redes_reales.R** there is a list of functions to obtain:
 - Distance Matrix (*distance_matrix(data_network*)
@@ -22,7 +22,7 @@ The resulting data can be saved as a separate .csv document and plotted with [gg
 - Property v Sample Size (with threshold values in Legend)
 - Property v Threshold Values (with sample size in Legend)
 
-## Synthetic Networks.
+## Synthetic Networks
 In this project, two types of model networks were studied to compare its behaviour with our plant complex networks.
 ### Erdos-Renyi Network
 Based on the theory developed by [Erdos-Renyi](https://snap.stanford.edu/class/cs224w-readings/erdos59random.pdf) and working with [igraph](https://igraph.org/r/doc/erdos.renyi.game.html) package, we created a 5000 node network with a given probability of connection (*prob*). Afterwards, we extracted (*prom*) number of random samples of given size (*size*) and obtained the mean value of previously mentioned structural properties. The pertinent functions created to do so can be found in **Funciones_redes_aleatorias.R**. 
@@ -36,7 +36,7 @@ The resulting data can be saved as a separate .csv document and plotted with [gg
 - Property v Sample Size (with probability values in Legend)
 - Scaling (if possible) of these properties to find a common behaviour invariant of sample size
 
-### Random Geometric Network.
+### Random Geometric Network
 We developed a random distance graph that adds edges between nodes if distance between nodes is sorter that given radius (*rad*). This implemented thanks to [igraph](https://igraph.org/r/doc/sample_grg.html) package. Similarly as with Erdos-Renyi, a 5000 node network was built and subnets of sizes (*size*) were elaborated from random sampling from original network. To evaluate the value of the properties, mean values of (*prom*) samples were calculated. The function with estimate these values can be found in **Funciones_redes_geometricas.R**, which can be summed up into:
 - Giant component (*LCC_grg(size, rad, prom)*)
 - Modularity value (*Mod_grg(size, rad, prom)*)
@@ -47,3 +47,11 @@ We developed a random distance graph that adds edges between nodes if distance b
 The resulting data can be saved as a separate .csv document and plotted with [ggplot2](https://ggplot2.tidyverse.org/) using **Resultados_redes_geometricas.rmd** programme. Results will be saved in PDF format. There are two types of graph: 
 - Property v Sample Size (with probability values in Legend)
 - Scaling (if possible) of these properties to find a common behaviour invariant of sample size
+
+## Other Programmes
+### Introductory graphs
+The programmes developed to plot, both spatial distribution and connectivity graphs in the Introduction section are:
+- **Mapa_sustratos.rmd**
+- **Ejemplo_redes_geometricas_aleatorias_reales.rmd**
+
+An additional **App_sustratos.R** interactive programme made with Shiny is included. It consists of a set of tools that enables the user to see the spatial distribution of the nodes and how modularity, clustering coefficient, diameter, degree connection change based on the size and threshold selected.
