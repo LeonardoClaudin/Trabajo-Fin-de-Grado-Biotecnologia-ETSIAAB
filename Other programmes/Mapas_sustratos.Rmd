@@ -1,0 +1,43 @@
+---
+title: "Mapa redes reales"
+author: "LeonardoClaudin"
+date: "20/6/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+rm(list = ls())
+source("Funciones/Funciones_redes_reales.R")
+```
+
+```{r}
+mytheme <- theme(panel.grid.major = element_line(color = '#cccccc' 
+                                                  ,linetype = 'dashed'
+                                                  ,size = .3
+                                                  )
+                 ,panel.background = element_rect(fill = 'aliceblue')
+                 ,plot.title = element_text(size = 32)
+                 ,plot.subtitle = element_text(size = 14)
+                 ,axis.title = element_blank()
+                 ,axis.text = element_text(size = 10)
+                 )
+```
+
+
+```{r}
+world <- ne_countries(scale = "medium", returnclass = "sf")
+datos <- data_network("Sustratos/Viñedos/CoordenadasVid.csv", 1000)
+pdf("Mapa_viñedos.pdf", 10, 10)
+ggplot() + 
+  geom_sf(data = world) +
+  coord_sf(ylim = c(30, 50), xlim = c(-20, 10), expand = TRUE) +
+  geom_point(data = datos, aes(x = X, y = Y), 
+                       colour = "navy",
+                       position = "jitter") +
+  mytheme
+dev.off()
+```
+
+
+
